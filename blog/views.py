@@ -1,5 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect
+
+from .forms import ItemForm
 from .models import Item
 
 
@@ -19,12 +21,37 @@ class ItemView(View):
 
 class CreateItemView(View):
     def get(self, request):
-        return render(request, 'create_item.html')
+        form = ItemForm()
+        return render(request, 'create_item.html', {'form': form})
 
     def post(self, request):
-        name = request.POST.get('name')
-        return redirect('items')
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('items')
+        return render(request, 'create_item.html', {'form': form})
 
+
+class EditItemView(View):
+    def get(self, request, item_id):
+        item = Item.objects.get(id=item_id)
+        form = ItemForm(instance=item)
+        return render(request, 'edit_item.html', {'form': form, 'item': item})
+
+    def post(self, request, item_id):
+        item = Item.objects.get(id=item_id)
+        form = ItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('items')
+        return render(request, 'edit_item.html', {'form': form, 'item': item})
+
+
+class DeleteItemView(View):
+    def post(self, request, item_id):
+        item = Item.objects.get(id=item_id)
+        item.delete()
+        return redirect('items')
 
 class GroupView(View):
     def get(self, request):
@@ -34,8 +61,40 @@ class GroupView(View):
 
 class CreateGroupView(View):
     def get(self, request):
-        return render(request, 'create_group.html')
+        form = GroupForm()
+        return render(request, 'create_group.html', {'form': form})
 
     def post(self, request):
-        name = request.POST.get('name')
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('groups')
+        return render(request, 'create_group.html', {'form': form})
+
+
+class EditGroupView(View):
+    def get(self, request, group_id):
+        group = Group.objects.get(id=group_id)
+        form = GroupForm(instance=group)
+        return render(request, 'edit_group.html', {'form': form, 'group': group})
+
+    def post(self, request, group_id):
+        group = Group.objects.get(id=group_id)
+        form = GroupForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect('groups')
+        return render(request, 'edit_group.html', {'form': form, 'group': group})
+
+
+class DeleteGroupView(View):
+    def post(self, request, group_id):
+        group = Group.objects.get(id=group_id)
+        group.delete()
         return redirect('groups')
+
+
+
+
+
+
