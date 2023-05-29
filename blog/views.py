@@ -1,8 +1,37 @@
 from django.views import View
 from django.shortcuts import render, redirect
 
-from .forms import ItemForm
+from .forms import ItemForm, ContactForm
 from .models import Item
+from django.contrib import messages
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Делайте что-то с валидными данными формы
+            return redirect('contact_success')
+        else:
+            # Вывод сообщения об ошибке
+            messages.error(request, 'Ошибка ввода данных.')
+    else:
+        form = ContactForm()
+    return render(request, 'contacts.html', {'form': form})
+
+
+def admin_contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Делайте что-то с валидными данными формы
+            return redirect('admin_contact_success')
+        else:
+            # Вывод сообщения об ошибке
+            messages.error(request, 'Ошибка ввода данных.')
+    else:
+        form = ContactForm()
+    return render(request, 'admin_contacts.html', {'form': form})
 
 
 def home(request):
@@ -52,6 +81,7 @@ class DeleteItemView(View):
         item = Item.objects.get(id=item_id)
         item.delete()
         return redirect('items')
+
 
 class GroupView(View):
     def get(self, request):
