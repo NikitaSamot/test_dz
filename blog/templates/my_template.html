@@ -1,0 +1,31 @@
+<h1>Welcome, {{ data.name }}!</h1>
+<p>Your age is {{ data.age }}.</p>
+<ul>
+    {% for item in data.items %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+<p>Отфильтрованное значение: {{ value|custom_filter }}</p>
+
+
+{% for comment in comments %}
+    <div class="comment">
+        <p>{{ comment.content }}</p>
+        <p>Дата: {{ comment.date|date:"d-F-Y" }}</p>
+    </div>
+{% empty %}
+    <p>Комментариев нет.</p>
+{% endfor %}
+
+
+
+<p>Привет, {{ user.username|upper }}!</p>
+
+
+
+{% for comment in comments %}
+
+{% empty %}
+    <p>Комментариев нет.</p>
+{% endfor %}
+

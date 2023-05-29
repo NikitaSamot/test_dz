@@ -6,6 +6,15 @@ from .models import Item
 from django.contrib import messages
 
 
+def my_view(request):
+    data = {
+        'name': 'John',
+        'age': 25,
+        'items': ['Apple', 'Banana', 'Orange'],
+    }
+    return render(request, 'my_template.html', {'data': data})
+
+
 def contact_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
