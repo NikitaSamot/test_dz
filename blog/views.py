@@ -4,6 +4,24 @@ from django.shortcuts import render, redirect
 from .forms import ItemForm, ContactForm
 from .models import Item
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
+
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def some_view(request):
+    if request.user.is_authenticated:
+        print(f"Пользователь: {request.user.username}")
+        print(f"Авторизован: {request.user.is_authenticated}")
+        print(f"Группы: {request.user.groups.all()}")
+    else:
+        print("Пользователь не авторизован")
+
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    redirect_authenticated_user = True
 
 
 def my_view(request):
