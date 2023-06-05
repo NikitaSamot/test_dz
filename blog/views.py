@@ -151,6 +151,16 @@ class DeleteGroupView(View):
         return redirect('groups')
 
 
+def contacts(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'blog/success.html')
+    else:
+        form = ContactForm()
+
+    return render(request, 'contacts.html', {'form': form})
 
 
 

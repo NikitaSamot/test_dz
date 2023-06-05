@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
