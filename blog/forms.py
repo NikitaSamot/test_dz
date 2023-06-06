@@ -1,5 +1,6 @@
 from django import forms
 from .models import Item
+from captcha.fields import ReCaptchaField
 
 
 class ItemForm(forms.ModelForm):
@@ -14,4 +15,7 @@ def validate_phone_number(value):
 
 
 class ContactForm(forms.Form):
-    phone_number = forms.CharField(validators=[validate_phone_number])
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    message = forms.CharField(widget=forms.Textarea)
+    captcha = ReCaptchaField()

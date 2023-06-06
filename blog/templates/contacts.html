@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 
-<form method="POST">
+<form method="POST" action="{% url 'contact' %}">
     {% csrf_token %}
     {{ form|bootstrap }}
+    {{ form.captcha }}
     <button type="submit" class="btn btn-primary">Отправить</button>
 </form>

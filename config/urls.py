@@ -29,6 +29,7 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/logget_out.html'), name='logout'),
     path('some_view/', some_view, name='some_view'),
+    path('contact/', views.contacts, name='contacts'),
 ]
 
 
