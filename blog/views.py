@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect
 
-from .forms import ItemForm, ContactForm, BBCodeForm
+from .forms import ItemForm, ContactForm, BBCodeForm, FileUploadForm
 from .models import Item
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
@@ -177,4 +177,14 @@ def save_bbcode(request):
     return render(request, 'bbcode_form.html', {'form': form})
 
 
+def upload_file(request):
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = form.cleaned_data['file']
+            FileUploadForm.objects.create(file=file)
+            return redirect('upload_success')
+    else:
+        form = FileUploadForm()
+    return render(request, 'upload_file.html', {'form': form})
 

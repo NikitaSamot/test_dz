@@ -27,3 +27,5 @@ class BBCodeForm(forms.ModelForm):
         fields = ['content']
 
 
+class FileUploadForm(forms.Form):
+    file = forms.FileField()

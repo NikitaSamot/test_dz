@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Загрузить файл</button>
+</form>

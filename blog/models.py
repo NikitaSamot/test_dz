@@ -48,3 +48,7 @@ class BBCode(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class FileUpload(models.Model):
+    file = models.FileField(upload_to='uploads/')
