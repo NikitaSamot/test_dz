@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect
 
-from .forms import ItemForm, ContactForm
+from .forms import ItemForm, ContactForm, BBCodeForm
 from .models import Item
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
@@ -165,6 +165,16 @@ def contacts(request):
 
     return render(request, 'contacts.html', {'form': form})
 
+
+def save_bbcode(request):
+    if request.method == 'POST':
+        form = BBCodeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'blog/success.html')
+    else:
+        form = BBCodeForm()
+    return render(request, 'bbcode_form.html', {'form': form})
 
 
 

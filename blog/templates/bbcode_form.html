@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+<form method="post" action="{% url 'save_bbcode' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+</form>

@@ -41,3 +41,10 @@ products = Product.objects.prefetch_related('category')
 # В результате использования метода prefetch_related() с указанием правильного имени поля можно
 # значительно повысить производительность и сократить количество запросов к базе данных при работе
 # с моделью, описывающей товар, и её связанными объектами или данными.
+
+
+class BBCode(models.Model):
+    content = models.TextField()
+
+    def __str__(self):
+        return self.content

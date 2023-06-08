@@ -19,3 +19,11 @@ class ContactForm(forms.Form):
     email = forms.EmailField()
     message = forms.CharField(widget=forms.Textarea)
     captcha = ReCaptchaField()
+
+
+class BBCodeForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = ['content']
+
+
