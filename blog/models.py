@@ -2,6 +2,7 @@ from django.db import models
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 # Create your models here.
+from django.contrib.auth.models import User
 
 
 def add_superuser_to_group(sender, **kwargs):
@@ -52,3 +53,11 @@ class BBCode(models.Model):
 
 class FileUpload(models.Model):
     file = models.FileField(upload_to='uploads/')
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Добавьте дополнительные поля профиля здесь
+
+    def __str__(self):
+        return self.user.username

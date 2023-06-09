@@ -8,7 +8,11 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView
 
 from django.contrib.auth.decorators import login_required
-
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+from .models import Profile, Product
+from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 @login_required
 def some_view(request):
@@ -196,3 +200,13 @@ def upload_file(request):
         form = FileUploadForm()
     return render(request, 'upload_file.html', {'form': form})
 
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.get_or_create(user=instance)
+
+
+@receiver(pre_save, sender=Product)
+def update_slug(sender, instance, **kwargs):
+    instance.slug = slugify(instance.title)
