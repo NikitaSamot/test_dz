@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+<h1>Предметы и студенты</h1>
+
+<h2>Предметы:</h2>
+<ul>
+  {% for subject in subjects %}
+    <li>{{ subject.name }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Студенты, у которых преподаются предметы:</h2>
+<ul>
+  {% for student in students %}
+    <li>{{ student.name }}</li>
+  {% endfor %}
+</ul>

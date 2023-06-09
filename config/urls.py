@@ -20,7 +20,7 @@ from blog import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from blog.views import CustomLoginView, some_view, save_bbcode, upload_file
+from blog.views import CustomLoginView, some_view, save_bbcode, upload_file, subjects_students
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -33,6 +33,7 @@ urlpatterns = [
     path('save_bbcode/', save_bbcode, name='save_bbcode'),
     path('upload/', upload_file, name='upload_file'),
     path('todo/', include('to_do.urls')),
+    path('subjects_students/', subjects_students, name='subjects_students'),
 ]
 
 
