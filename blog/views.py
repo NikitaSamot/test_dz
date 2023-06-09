@@ -10,9 +10,10 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from .models import Profile, Product, Subject, Student
+from .models import Profile, Product, Subject, Student, Category
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from reviews.models import Review
 
 
 @login_required
@@ -223,3 +224,11 @@ def subjects_students(request):
     return render(request, 'subjects_student.html', context)
 
 
+def index(request):
+    categories = Category.objects.all()
+    reviews = Review.objects.all()
+    context = {
+        'categories': categories,
+        'reviews': reviews
+    }
+    return render(request, 'index.html', context)

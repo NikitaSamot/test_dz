@@ -23,7 +23,7 @@ from django.contrib.auth import views as auth_views
 from blog.views import CustomLoginView, some_view, save_bbcode, upload_file, subjects_students
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', views.index, name='index'),
     path('about/', views.about, name='about'),
     path('create/', views.CreateItemView.as_view(), name='create'),
     path('login/', CustomLoginView.as_view(), name='login'),

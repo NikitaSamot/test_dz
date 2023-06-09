@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to our website!</h1>
+
+<div class="courses-categories">
+  <h2>Courses Categories</h2>
+  <ul>
+    {% for category in categories %}
+      <li>{{ category.name }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+<div class="students-say">
+  <h2>Our Students Say!</h2>
+  <ul>
+    {% for review in reviews %}
+      <li>{{ review.content }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
