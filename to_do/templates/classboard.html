@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+<table>
+  <thead>
+    <tr>
+      <th>Группа</th>
+      <th>Пара 1</th>
+      <th>Пара 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for day in schedule %}
+    <tr>
+      <td>{{ day.group }}</td>
+      <td>{{ day.lesson1 }}</td>
+      <td>{{ day.lesson2 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
