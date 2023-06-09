@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% if messages %}
+    <div class="notifications">
+        {% for message in messages %}
+            <div class="notification">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}

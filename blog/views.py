@@ -1,3 +1,4 @@
+from django.core import signing
 from django.views import View
 from django.shortcuts import render, redirect
 
@@ -167,10 +168,17 @@ def contacts(request):
 
 
 def save_bbcode(request):
+    data = {'key': 'value'}
+    signed_data = signing.dumps(data)
+    try:
+        original_data = signing.loads(signed_data)
+    except signing.BadSignature:
+        original_data = None
     if request.method == 'POST':
         form = BBCodeForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.SUCCESS, 'Пример уведомления')
             return render(request, 'blog/success.html')
     else:
         form = BBCodeForm()

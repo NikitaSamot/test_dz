@@ -319,3 +319,16 @@ ul#course-modules li:hover {
     padding-left:0;
     padding-right:0;
 }
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.notification {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
