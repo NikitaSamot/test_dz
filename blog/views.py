@@ -14,6 +14,7 @@ from .models import Profile, Product, Subject, Student, Category
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from reviews.models import Review
+from django.views.decorators.cache import cache_page
 
 
 @login_required
@@ -224,6 +225,7 @@ def subjects_students(request):
     return render(request, 'subjects_student.html', context)
 
 
+@cache_page(60) # Кэшировать результат на 60 секунд
 def index(request):
     categories = Category.objects.all()
     reviews = Review.objects.all()
