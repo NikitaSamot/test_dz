@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from blog.views import CustomLoginView, some_view, save_bbcode, upload_file, subjects_students
+from contacts.views import contact
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
@@ -34,6 +35,7 @@ urlpatterns = [
     path('upload/', upload_file, name='upload_file'),
     path('todo/', include('to_do.urls')),
     path('subjects_students/', subjects_students, name='subjects_students'),
+    path('contacts', contact, name='contact'),
 ]
 
 
