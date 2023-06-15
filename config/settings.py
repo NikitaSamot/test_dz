@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'to_do',
     'reviews',
     'contacts',
+    'testimonials ',
 ]
 
 MIDDLEWARE = [

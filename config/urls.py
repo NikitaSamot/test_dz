@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+import testimonials
 from blog import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -35,7 +37,8 @@ urlpatterns = [
     path('upload/', upload_file, name='upload_file'),
     path('todo/', include('to_do.urls')),
     path('subjects_students/', subjects_students, name='subjects_students'),
-    path('contacts', contact, name='contact'),
+    path('contacts/', contact, name='contact'),
+    path('testimonials/', include('testimonials.urls'), name='testimonials'),
 ]
 
 
