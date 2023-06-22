@@ -1,10 +1,16 @@
 from msilib.schema import ListView
 
+from Tools.scripts.make_ctype import method
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import CreateView, DeleteView, UpdateView, TemplateView
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
+from .models import Genre
+from .serializers import GenreSerializer
 
 # Create your views here.
 class TeacherListView(ListView):
@@ -44,3 +50,18 @@ class CustomMixin2(LoginRequiredMixin, TemplateView):
 
     def some_method(self):
         pass
+
+
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+
+class GenreViewSetTwo(viewsets.ModelViewSet):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+
+    @action(detail=True, method=['get'])
+    def custom_action(self, request, pk=None):
+        genre = self.get_object()
+        return Response({'message': 'Custom Genre executed successfully'})

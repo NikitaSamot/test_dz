@@ -154,3 +154,14 @@ CACHES = {
         },
     },
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'login'
+
+LOGIN_REQUEST_VIEWS = [
+    'app.views',
+    'app.another_view',
+]
