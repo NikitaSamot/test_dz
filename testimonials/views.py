@@ -3,7 +3,7 @@ from msilib.schema import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView, TemplateView
 
 
 # Create your views here.
@@ -29,3 +29,18 @@ class TeacherDeleteView(LoginRequiredMixin, DeleteView):
     model = Teacher
     template_name = 'teachers/teacher_confirm_delete.html'
     success_url = reverse('teachers:teacher_list')
+
+
+class CustomMixin(LoginRequiredMixin):
+    login_url = '/login/'
+    redirect_field_name = 'next'
+
+    def some_method(self):
+        pass
+
+
+class CustomMixin2(LoginRequiredMixin, TemplateView):
+    template_name = 'custom_template.html'
+
+    def some_method(self):
+        pass
