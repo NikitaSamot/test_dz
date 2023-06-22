@@ -8,7 +8,7 @@ from django.views.generic import CreateView, DeleteView, UpdateView, TemplateVie
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+from django.db import transaction
 from .models import Genre
 from .serializers import GenreSerializer
 
@@ -65,3 +65,29 @@ class GenreViewSetTwo(viewsets.ModelViewSet):
     def custom_action(self, request, pk=None):
         genre = self.get_object()
         return Response({'message': 'Custom Genre executed successfully'})
+
+
+@transaction.atomic
+def create_order(user, items):
+    try:
+        with transaction.atomic():
+            order = Order(user=user)
+            order.save()
+
+            for item_data in items:
+                product = Product.objects.get(id=item_data['product_id'])
+                quantity = item_data['quantity']
+                order_item = OrderItem(order=order, product=product, quantity=quantity)
+                order_item.save()
+
+            payment_successful = process_payment(order)
+
+            if not payment_successful:
+                raise Exception('Payment failed')
+
+            send_order_confirmation(order)
+
+        return order
+    except Exception as e:
+        transaction.set_rollback(True)
+        raise e
