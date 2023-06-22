@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import datetime
+import logging
+from logging.handlers import RotatingFileHandler
 import os
 from pathlib import Path
 
@@ -24,7 +27,22 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+JWT_ALGORITHM = 'HS256'
+JWT_EXPIRATION_DELTA = datetime.timedelta(hours=1)
+JWT_SECRET_KEY = SECRET_KEY
 ALLOWED_HOSTS = []
+
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
+
+error_handler = RotatingFileHandler('error.log', maxBytes=1024 * 1024, backupCount=5)
+error_handler.setLevel(logging.ERROR)
+
+logging.getLogger('').addHandler(error_handler)
+
+try:
+    raise ValueError('Произошла ошибка')
+except ValueError as e:
+    logging.error(str(e))
 
 # Application definition
 
@@ -117,7 +135,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
